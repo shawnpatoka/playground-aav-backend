@@ -1,5 +1,5 @@
 from django.db import models
-
+from users.models import User
 
 STATUS_OPTIONS = (
     ('open', 'Open'),
@@ -12,6 +12,7 @@ STATUS_OPTIONS = (
 
 class WorkOrder(models.Model):
     site                        = models.CharField(max_length=100, null=True, blank=True)
+    assigned_to                 = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default="", related_name='assigned_to')
     created_at                  = models.DateTimeField(auto_now_add=True)
     status                      = models.CharField(max_length=25, choices=STATUS_OPTIONS, default='open', null=True, blank=True)
     description                 = models.TextField(null=True,blank=True)

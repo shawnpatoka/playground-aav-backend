@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from work_orders.models import WorkOrder
-from work_orders.serializers import WorkOrderSerializer
+from work_orders.serializers import WorkOrderSerializer, WorkOrderListSerializer
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -10,7 +10,7 @@ from rest_framework import status
 class WorkOrderView(APIView):
     def get(self, request, format=None):
         snippets = WorkOrder.objects.all()
-        serializer = WorkOrderSerializer(snippets, many=True)
+        serializer = WorkOrderListSerializer(snippets, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):
